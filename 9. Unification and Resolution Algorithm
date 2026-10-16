@@ -1,0 +1,44 @@
+def unify(x, y):
+    substitution = {}
+
+    if x == y:
+        return substitution
+
+    if x.islower() and x not in y:
+        substitution[x] = y
+        return substitution
+
+    if y.islower() and y not in x:
+        substitution[y] = x
+        return substitution
+
+    return None
+
+
+def resolve(clause1, clause2):
+    for literal in clause1:
+        if literal.startswith("~"):
+            opposite = literal[1:]
+        else:
+            opposite = "~" + literal
+
+        if opposite in clause2:
+            result = set(clause1) | set(clause2)
+            result.discard(literal)
+            result.discard(opposite)
+            return result
+
+    return None
+
+
+x = input("Enter first term for unification: ")
+y = input("Enter second term for unification: ")
+
+print("Unification:")
+print(unify(x, y))
+
+clause1 = input("Enter first clause literals: ").split()
+clause2 = input("Enter second clause literals: ").split()
+
+print("Resolution:")
+print(resolve(clause1, clause2))
