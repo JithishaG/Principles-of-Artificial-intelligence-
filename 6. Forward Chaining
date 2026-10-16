@@ -1,0 +1,27 @@
+facts = set(input("Enter known facts separated by space: ").split())
+
+rules = {}
+
+n = int(input("Enter number of rules: "))
+
+for i in range(n):
+    conclusion = input("Enter rule conclusion: ")
+    conditions = input("Enter required conditions separated by space: ").split()
+    rules[conclusion] = conditions
+
+
+changed = True
+
+while changed:
+    changed = False
+
+    for conclusion, conditions in rules.items():
+        if all(condition in facts for condition in conditions):
+            if conclusion not in facts:
+                facts.add(conclusion)
+                changed = True
+
+print("Derived Facts:")
+
+for fact in sorted(facts):
+    print(fact)
