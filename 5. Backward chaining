@@ -1,0 +1,32 @@
+facts = input("Enter known facts separated by space: ").split()
+
+rules = {}
+
+n = int(input("Enter number of rules: "))
+
+for i in range(n):
+    conclusion = input("Enter rule conclusion: ")
+    conditions = input("Enter required conditions separated by space: ").split()
+    rules[conclusion] = conditions
+
+
+def backward_chaining(goal):
+    if goal in facts:
+        return True
+
+    if goal not in rules:
+        return False
+
+    for condition in rules[goal]:
+        if not backward_chaining(condition):
+            return False
+
+    return True
+
+
+goal = input("Enter goal to prove: ")
+
+if backward_chaining(goal):
+    print(goal, "can be proved")
+else:
+    print(goal, "cannot be proved")
