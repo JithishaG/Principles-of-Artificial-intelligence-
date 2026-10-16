@@ -1,0 +1,34 @@
+def triangle(x, a, b, c):
+    if x <= a or x >= c:
+        return 0.0
+    elif x == b:
+        return 1.0
+    elif x < b:
+        return (x - a) / (b - a)
+    else:
+        return (c - x) / (c - b)
+
+
+temperature = float(input("Enter temperature: "))
+
+cold = triangle(temperature, 0, 15, 25)
+warm = triangle(temperature, 15, 25, 35)
+hot = triangle(temperature, 25, 40, 50)
+
+low_speed = 20
+medium_speed = 50
+high_speed = 90
+
+numerator = (
+    cold * low_speed +
+    warm * medium_speed +
+    hot * high_speed
+)
+
+denominator = cold + warm + hot
+
+if denominator == 0:
+    print("Temperature outside defined range")
+else:
+    speed = numerator / denominator
+    print("Fan Speed:", round(speed, 2))
